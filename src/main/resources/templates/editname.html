@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+<form th:action="@{/individual/{id}/editname(id=${auditionee.id})}" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${auditionee.name}" required />
+    </div>
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+</form>
+
+</body>
+</html>

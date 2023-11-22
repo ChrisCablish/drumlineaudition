@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title>Auditionees</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: headerFragment"></div>
+
+<h1>Auditionees List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Rating</th>
+        <!-- Other headers -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="auditionee : ${auditionees}">
+        <td th:text="${auditionee.rating}">Rating</td>
+        <td th:text="${auditionee.name}">Name</td>
+        <td>
+            <a th:href="@{/individual/{id}(id=${auditionee.id})}">
+                <button>View/Edit Details</button>
+            </a>
+        </td>
+        <!-- Other data columns -->
+    </tr>
+    </tbody>
+</table>
+<!-- Links or forms for adding/editing/deleting auditionees -->
+</body>
+</html>

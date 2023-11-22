@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><div th:text="${auditionee.id}"></div><a th:href="@{/something}">edit</a></td>
+        <td><div th:text="${auditionee.name}"></div><a th:href="@{/individual/{id}/editname(id=${auditionee.id})}">edit</a></td>
+        <td><div th:text="${auditionee.rating}"></div><a th:href="@{/individual/{id}/editrating(id=${auditionee.id})}">edit</a></td>
+        <td><div th:text="${auditionee.notes}"></div><a th:href="@{/something}">edit</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

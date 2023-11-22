@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+
+<form th:action="@{/individual/{id}/editrating(id=${auditionee.id})}" method="post">
+    <label for="rating">Rating:</label>
+    <select id="rating" name="rating">
+        <option th:each="num : ${#numbers.sequence(1, 5)}"
+                th:value="${num}" th:text="${num}">
+            1
+        </option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

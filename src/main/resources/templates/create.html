@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: headerFragment"></div>
+<h1>Create New Auditionee</h1>
+<form th:action="@{/auditionees/create}" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+
+</body>
+</html>
