@@ -5,7 +5,7 @@ public class Auditionee {
     private String name;
     private List<String> strengths;
     private List<String> weaknesses;
-    private List<NotesEntry> notes;
+    private List<NoteEntry> notes;
     private int rating;
 
     public Auditionee() {
@@ -45,11 +45,11 @@ public class Auditionee {
         this.weaknesses = weaknesses;
     }
 
-    public List<NotesEntry> getNotes() {
+    public List<NoteEntry> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<NotesEntry> notes) {
+    public void setNotes(List<NoteEntry> notes) {
         this.notes = notes;
     }
 

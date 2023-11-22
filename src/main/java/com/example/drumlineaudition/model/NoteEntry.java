@@ -2,15 +2,16 @@ package com.example.drumlineaudition.model;
 
 import java.time.LocalDateTime;
 
-public class NotesEntry {
+public class NoteEntry {
     private Long id;
     private LocalDateTime date;
     private String text;
 
-    public NotesEntry() {
+    public NoteEntry() {
+        this.date = LocalDateTime.now();
     }
 
-    public NotesEntry(LocalDateTime date, String text) {
+    public NoteEntry(LocalDateTime date, String text) {
         this.date = LocalDateTime.now();
         this.text = text;
     }

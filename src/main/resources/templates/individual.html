@@ -20,7 +20,16 @@
         <td><div th:text="${auditionee.id}"></div><a th:href="@{/something}">edit</a></td>
         <td><div th:text="${auditionee.name}"></div><a th:href="@{/individual/{id}/editname(id=${auditionee.id})}">edit</a></td>
         <td><div th:text="${auditionee.rating}"></div><a th:href="@{/individual/{id}/editrating(id=${auditionee.id})}">edit</a></td>
-        <td><div th:text="${auditionee.notes}"></div><a th:href="@{/something}">edit</a></td>
+        <td>
+            <ul>
+                <li th:each="note : ${notes}">
+                    <span th:text="${#temporals.format(note.date, 'MM/dd/yy')}"></span>
+                    <span th:text="${note.text}"></span>
+                </li>
+            </ul>
+            <a th:href="@{/individual/{id}/addnoteentry(id=${auditionee.id})}">edit</a>
+        </td>
+
     </tr>
     </tbody>
 </table>

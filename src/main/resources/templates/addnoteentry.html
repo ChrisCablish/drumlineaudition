@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+<form th:action="@{/individual/{id}/addnoteentry(id=${auditionee.id})}" method="post">
+    <div>
+        <label for="noteentry">Add your note here:</label>
+        <input type="text" id="noteentry" name="text" required />
+    </div>
+    <div>
+        <button type="submit">Create Note</button>
+    </div>
+</form>
+
+</body>
+</html>

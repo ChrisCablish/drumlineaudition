@@ -1,11 +1,15 @@
 package com.example.drumlineaudition.controller;
 
 import com.example.drumlineaudition.model.Auditionee;
+import com.example.drumlineaudition.model.NoteEntry;
 import com.example.drumlineaudition.service.AuditioneeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuditioneeController {
@@ -35,6 +39,7 @@ public class AuditioneeController {
     public String showAuditioneeDetails(@PathVariable Long id, Model model) {
         Auditionee auditionee = auditioneeService.getAuditioneeById(id);
         model.addAttribute("auditionee", auditionee);
+        model.addAttribute("notes",auditionee.getNotes());
         return "individual"; // the name of your Thymeleaf template for individual details
     }
 
@@ -68,6 +73,27 @@ public class AuditioneeController {
         auditionee.setRating(newRating);
         auditioneeService.saveAuditionee(auditionee);
         return "redirect:/auditionees";
+    }
+
+    @GetMapping("individual/{id}/addnoteentry")
+    public String addNoteEntry( Model model, @PathVariable Long id) {
+        Auditionee auditionee = auditioneeService.getAuditioneeById(id);
+        model.addAttribute("auditionee", auditionee);
+        return "addnoteentry";
+    }
+
+    @PostMapping("individual/{id}/addnoteentry")
+    public String processNoteEntry (@ModelAttribute NoteEntry noteEntry, @PathVariable Long id) {
+        Auditionee auditionee = auditioneeService.getAuditioneeById(id);
+        List<NoteEntry> noteList = auditionee.getNotes();
+        if (noteList == null) {
+            noteList = new ArrayList<>();
+        }
+
+        noteList.add(noteEntry);
+        auditionee.setNotes(noteList);
+        auditioneeService.saveAuditionee(auditionee);
+        return "redirect:/individual/" + id;
     }
 
 }
