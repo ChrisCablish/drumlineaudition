@@ -3,8 +3,8 @@ import java.util.List;
 public class Auditionee {
     private Long id;
     private String name;
-    private List<String> strengths;
-    private List<String> weaknesses;
+    private List<Attribute> strengths;
+    private List<Attribute> weaknesses;
     private List<NoteEntry> notes;
     private int rating;
 
@@ -29,19 +29,19 @@ public class Auditionee {
         this.name = name;
     }
 
-    public List<String> getStrengths() {
+    public List<Attribute> getStrengths() {
         return strengths;
     }
 
-    public void setStrengths(List<String> strengths) {
+    public void setStrengths(List<Attribute> strengths) {
         this.strengths = strengths;
     }
 
-    public List<String> getWeaknesses() {
+    public List<Attribute> getWeaknesses() {
         return weaknesses;
     }
 
-    public void setWeaknesses(List<String> weaknesses) {
+    public void setWeaknesses(List<Attribute> weaknesses) {
         this.weaknesses = weaknesses;
     }
 

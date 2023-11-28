@@ -1,5 +1,6 @@
 package com.example.drumlineaudition.controller;
 
+import com.example.drumlineaudition.model.Attribute;
 import com.example.drumlineaudition.model.Auditionee;
 import com.example.drumlineaudition.model.NoteEntry;
 import com.example.drumlineaudition.service.AuditioneeService;
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AuditioneeController {
@@ -20,6 +23,18 @@ public class AuditioneeController {
     @GetMapping("/auditionees")
     public String listAuditionees(Model model) {
         model.addAttribute("auditionees", auditioneeService.getAllAuditionees());
+
+        Map<Long, Attribute> attributes = new HashMap<>();
+        attributes.put(1L, new Attribute("Technique"));
+        attributes.put(2L, new Attribute("Sound Quality"));
+        attributes.put(3L, new Attribute("Accuracy"));
+        attributes.put(4L, new Attribute("Posture"));
+        attributes.put(5L, new Attribute("Attitude"));
+        attributes.put(6L, new Attribute("Preparedness"));
+
+
+
+
         return "auditionees";
     }
 
@@ -94,6 +109,22 @@ public class AuditioneeController {
         auditionee.setNotes(noteList);
         auditioneeService.saveAuditionee(auditionee);
         return "redirect:/individual/" + id;
+    }
+
+
+    @GetMapping("dashboard")
+    public String displayDashboard(Model model) {
+        List<String> pages = new ArrayList<>();
+        pages.add("User Creation");
+        pages.add("Adjust Role Permissions");
+        pages.add("Workflow Management");
+        List<String> user = new ArrayList<>();
+        user.add("Manufacturing Operator");
+        user.add("Product Manager");
+        user.add("Administrator");
+        model.addAttribute("pages",pages);
+        model.addAttribute("user", user);
+        return "dashboard";
     }
 
 }
