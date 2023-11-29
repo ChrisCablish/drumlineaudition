@@ -3,22 +3,27 @@ package com.example.drumlineaudition.controller;
 import com.example.drumlineaudition.model.Attribute;
 import com.example.drumlineaudition.model.Auditionee;
 import com.example.drumlineaudition.model.NoteEntry;
+import com.example.drumlineaudition.repository.AttributeRepository;
 import com.example.drumlineaudition.service.AuditioneeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class AuditioneeController {
 
     @Autowired
     private AuditioneeService auditioneeService;
+
+    @Autowired
+    private AttributeRepository attributeRepository;
+
+    public AuditioneeController() {
+    }
 
     @GetMapping("/auditionees")
     public String listAuditionees(Model model) {
@@ -111,6 +116,40 @@ public class AuditioneeController {
         return "redirect:/individual/" + id;
     }
 
+
+    @GetMapping("individual/{id}/editstrength")
+    public String editStrengths (Model model, @PathVariable Long id) {
+        Auditionee auditionee = auditioneeService.getAuditioneeById(id);
+        Collection<Attribute> attributes  = attributeRepository.findAll();
+        model.addAttribute("strengths",auditionee.getStrengths());
+        model.addAttribute("auditionee", auditionee);
+        model.addAttribute("allAvailableAttributes", attributes);
+        return "editstrength";
+    }
+
+    @PostMapping("individual/{id}/editstrength")
+    public  String processeditStrengths(@PathVariable Long id, @RequestParam List<Long> selectedStrengths) {
+        Auditionee auditionee = auditioneeService.getAuditioneeById(id);
+
+        List<Attribute> strengths = selectedStrengths.stream()
+                .map(attributeRepository::findById) // Assuming findById returns an Attribute
+                .toList();
+
+        //add to strength list
+        auditionee.setStrengths(strengths);
+        auditioneeService.saveAuditionee(auditionee);
+
+        //ALSO NEED TO REMOVE FROM AVAILABLE
+
+
+        return "redirect:/individual/" + id;
+    }
+
+
+
+
+
+//-----------------------------------------------------
 
     @GetMapping("dashboard")
     public String displayDashboard(Model model) {

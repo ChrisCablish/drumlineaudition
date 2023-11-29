@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF=8"/>
+    <title></title>
+</head>
+<body>
+<div>
+    <h1>Edit Strengths</h1>
+    <ul>
+        <li th:each="strength : ${strengths}" th:text="${strength.getName}"></li>
+    </ul>
+
+    <form th:action="@{/individual/{id}/editstrength(id=${auditionee.id})}" th:method="post">
+        <h2>Select Strengths for [[${auditionee.name}]]</h2>
+        <div th:each="attribute : ${allAvailableAttributes}">
+            <input type="checkbox" th:name="selectedStrengths" th:value="${attribute.id}">
+            <label th:text="${attribute.name}"></label>
+        </div>
+        <button type="submit">Add Strengths</button>
+    </form>
+
+</div>
+
+</body>
+</html>

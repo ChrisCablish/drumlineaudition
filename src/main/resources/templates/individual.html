@@ -22,8 +22,8 @@
         <td><div th:text="${auditionee.id}"></div><a th:href="@{/something}">edit</a></td>
         <td><div th:text="${auditionee.name}"></div><a th:href="@{/individual/{id}/editname(id=${auditionee.id})}">edit</a></td>
         <td><div th:text="${auditionee.rating}"></div><a th:href="@{/individual/{id}/editrating(id=${auditionee.id})}">edit</a></td>
-        <td><div th:text="${auditionee.strengths}"></div><a th:href="@{/individual/{id}/editrating(id=${auditionee.id})}">edit</a></td>
-        <td><div th:text="${auditionee.weaknesses}"></div><a th:href="@{/individual/{id}/editrating(id=${auditionee.id})}">edit</a></td>
+        <td><div th:text="${auditionee.strengths}"></div><a th:href="@{/individual/{id}/editstrength(id=${auditionee.id})}">edit</a></td>
+        <td><div th:text="${auditionee.weaknesses}"></div><a th:href="@{/individual/{id}/editweakness(id=${auditionee.id})}">edit</a></td>
         <td>
             <ul>
                 <li th:each="note : ${notes}">
