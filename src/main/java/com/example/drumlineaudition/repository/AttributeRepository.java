@@ -29,4 +29,11 @@ public class AttributeRepository {
     public void deleteById(Long id) {
         attributeMap.remove(id);
     }
+
+    public void removeAttributes(List<Attribute> attributesToRemove) {
+        attributeMap.values().removeAll(attributesToRemove);
+    }
+    public void addAttribute(Attribute attributeToAdd) {
+        attributeMap.put(attributeToAdd.getId(), attributeToAdd);
+    }
 }

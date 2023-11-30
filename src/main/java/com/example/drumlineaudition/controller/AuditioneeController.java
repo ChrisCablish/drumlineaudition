@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 @Controller
 public class AuditioneeController {
 
@@ -60,7 +61,8 @@ public class AuditioneeController {
         Auditionee auditionee = auditioneeService.getAuditioneeById(id);
         model.addAttribute("auditionee", auditionee);
         model.addAttribute("notes",auditionee.getNotes());
-        return "individual"; // the name of your Thymeleaf template for individual details
+        model.addAttribute("strengths", auditionee.getStrengths());
+        return "individual";
     }
 
     //NAME EDIT
@@ -128,22 +130,40 @@ public class AuditioneeController {
     }
 
     @PostMapping("individual/{id}/editstrength")
-    public  String processeditStrengths(@PathVariable Long id, @RequestParam List<Long> selectedStrengths) {
+    public  String processAddStrengths(@PathVariable Long id, @RequestParam List<Long> selectedStrengths) {
         Auditionee auditionee = auditioneeService.getAuditioneeById(id);
 
-        List<Attribute> strengths = selectedStrengths.stream()
-                .map(attributeRepository::findById) // Assuming findById returns an Attribute
-                .toList();
+        // Fetch existing strengths
+        List<Attribute> existingStrengths = auditionee.getStrengths();
+        if (existingStrengths == null) {
+            existingStrengths = new ArrayList<>();
+        }
 
-        //add to strength list
-        auditionee.setStrengths(strengths);
+        // Generate list of new strengths based on IDs collected from input
+        List<Attribute> newStrengths = selectedStrengths.stream()
+                .map(attributeRepository::findById)
+                .filter(Objects::nonNull)  // Ensure that findById returns a non-null Attribute
+                .collect(Collectors.toList());
+
+        // Combine existing strengths with new strengths
+        for (Attribute newStrength : newStrengths) {
+            if (!existingStrengths.contains(newStrength)) {
+                existingStrengths.add(newStrength);
+            }
+        }
+
+        auditionee.setStrengths(existingStrengths);
         auditioneeService.saveAuditionee(auditionee);
 
-        //ALSO NEED TO REMOVE FROM AVAILABLE
-
+        // Remove new strengths from available attributes
+        attributeRepository.removeAttributes(newStrengths);
 
         return "redirect:/individual/" + id;
+
     }
+
+
+
 
 
 

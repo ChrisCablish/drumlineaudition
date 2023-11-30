@@ -8,7 +8,13 @@
 <div>
     <h1>Edit Strengths</h1>
     <ul>
-        <li th:each="strength : ${strengths}" th:text="${strength.getName}"></li>
+        <li th:each="strength : ${strengths}">
+            <span th:text="${strength.name}"></span>
+            <form th:action="@{/removeStrength(strengthId=${strength.id}, auditioneeId=${auditionee.id})}" method="post">
+                <button type="submit" class="remove-strength-button">x</button>
+            </form>
+        </li>
+
     </ul>
 
     <form th:action="@{/individual/{id}/editstrength(id=${auditionee.id})}" th:method="post">
